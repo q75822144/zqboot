@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zqboot.interfaces.user.dao.UserMapper">
+
+    <resultMap type="com.zqboot.interfaces.user.model.User" id="User">
+        <result property="id" column="id"/>
+        <result property="account" column="account"/>
+        <result property="name" column="name"/>
+    </resultMap>
+
+    <insert id="addUser">
+        INSERT INTO t_boot_user(account,name)
+        VALUES
+        (#{account},#{name})
+    </insert>
+
+    <update id="deleteUser">
+        UPDATE t_boot_user SET state=0 WHERE id=#{id}
+    </update>
+    
+    <update id="updateUser">
+        UPDATE t_boot_user
+        <set>
+            <if test="account != null and account != ''">
+                account=#{account},
+            </if>
+            <if test="name != null and name != ''">
+                name=#{name},
+            </if>
+        </set>
+        WHERE id=#{id}
+    </update>
+
+    <select id="findUserById" resultMap="User">
+        SELECT * FROM t_boot_user WHERE state=1 AND id=#{id}
+    </select>
+
+    <select id="countUser" resultType="int">
+        SELECT COUNT(id) FROM t_boot_user WHERE state=1
+        <if test="account != null and account != ''">
+            AND account=#{account}
+        </if>
+        <if test="name != null and name != ''">
+            AND name LIKE LIKE CONCAT('%', #{name}, '%')
+        </if>
+    </select>
+
+    <select id="listUser" resultMap="User">
+        SELECT * FROM t_boot_user WHERE state=1
+        <if test="account != null and account != ''">
+            AND account=#{account}
+        </if>
+        <if test="name != null and name != ''">
+            AND name LIKE LIKE CONCAT('%', #{name}, '%')
+        </if>
+        LIMIT #{start}, #{size}
+    </select>
+
+</mapper>

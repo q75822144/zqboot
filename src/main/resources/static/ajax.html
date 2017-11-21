@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<input type="button" value="add" onclick="add()">
+<br>
+<input type="button" value="delete" onclick="del()">
+<br>
+<input type="button" value="put" onclick="put()">
+<br>
+<input type="button" value="find" onclick="find()">
+<br>
+<input type="button" value="list" onclick="lista()">
+<br>
+</body>
+
+<script src="jquery.js"></script>
+<script>
+    function add() {
+        $.ajax({
+            url: "/app/user",
+            type: "POST",
+            data: {account: '123', name: "hehe"},
+            dataType: 'json',
+            success: function (data) {
+                console.log(data)
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
+    }
+    function del() {
+        $.ajax({
+            url: "/app/user/1",
+            type: "DELETE",
+            dataType: 'json',
+            success: function (data) {
+                console.log(data)
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
+    }
+    function put() {
+        $.ajax({
+            url: "/app/user",
+            type: "PUT",
+            data: {id:1,name:"fuck"},
+            dataType: 'json',
+            success: function (data) {
+                console.log(data)
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
+    }
+    function find() {
+        $.ajax({
+            url: "/app/user/1",
+            type: "GET",
+            dataType: 'json',
+            success: function (data) {
+                console.log(data)
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
+    }
+    function lista() {
+        $.ajax({
+            url: "/app/user",
+            type: "GET",
+            data: {page:1,size:10},
+            dataType: 'json',
+            success: function (data) {
+                console.log(data)
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
+    }
+
+</script>
+</html>
