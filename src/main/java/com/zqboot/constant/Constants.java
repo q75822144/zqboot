@@ -1,7 +1,8 @@
-package com.zqboot.utils;
+package com.zqboot.constant;
 
 /**
  * Created by zhouquan on 2016/3/8.
+ * 常用常量池
  */
 public class Constants {
 

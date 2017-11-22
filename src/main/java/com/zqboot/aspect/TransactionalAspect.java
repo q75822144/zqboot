@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 //@Component
 public class TransactionalAspect {
 
-    @Before("execution(* com.zq.webserver.interfaces.*.service.*.*(..))")
+    @Before("execution(* com.zqboot.interfaces.*.service.*.*(..))")
     public void before(JoinPoint joinPoint) throws Exception {
         System.out.println(1111);
     }

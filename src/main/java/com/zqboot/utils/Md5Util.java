@@ -4,7 +4,12 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 
 public class Md5Util {
-	
+
+	/**
+	 * 生成32位md5
+	 * @param str
+	 * @return
+	 */
 	public static String makeMD5(String str) {
 		MessageDigest md;
 		   try {   

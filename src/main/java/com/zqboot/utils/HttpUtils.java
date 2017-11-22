@@ -1,8 +1,5 @@
 package com.zqboot.utils;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
@@ -11,10 +8,21 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Enumeration;
 
+/**
+ * Created by zhouquan on 2016/3/29.
+ * 实体类映射工具
+ */
 public class HttpUtils {
 
-    private final static Logger log = LoggerFactory.getLogger(HttpUtils.class);
-
+    /**
+     * 从request中获取参数转化为实体类
+     *
+     * @param request
+     * @param c
+     * @param <T>
+     * @return
+     * @throws Exception
+     */
     public static <T> T convert(HttpServletRequest request, Class<T> c)
             throws Exception {
         T bean = c.newInstance();
@@ -74,6 +82,15 @@ public class HttpUtils {
         return bean;
     }
 
+    /**
+     * 获取指定实体类的get方法
+     *
+     * @param c
+     * @param key
+     * @param <T>
+     * @return
+     * @throws Exception
+     */
     public static <T> Method getMethod(Class<T> c, String key)
             throws Exception {
         String method = "get";
@@ -82,11 +99,18 @@ public class HttpUtils {
         try {
             m = c.getDeclaredMethod(method);
         } catch (Exception e) {
-            log.info(e.getMessage());
+            System.out.println(e.getMessage());
         }
         return m;
     }
 
+    /**
+     * 获取属性get方法名
+     *
+     * @param key
+     * @return
+     * @throws Exception
+     */
     public static String getSetMethodName(String key)
             throws Exception {
         String method = "set";

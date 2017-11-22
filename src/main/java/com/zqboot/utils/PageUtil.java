@@ -6,6 +6,7 @@ import java.util.HashMap;
 
 /**
  * Created by zhouquan on 2016/3/17.
+ * 分页工具
  */
 public class PageUtil extends HashMap {
 
@@ -20,6 +21,7 @@ public class PageUtil extends HashMap {
 
     /**
      * 分页查询
+     *
      * @param request
      */
     public PageUtil(HttpServletRequest request) {
@@ -49,6 +51,7 @@ public class PageUtil extends HashMap {
 
     /**
      * 动态传入条件
+     *
      * @param request
      * @param useFlag
      */

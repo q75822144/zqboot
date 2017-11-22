@@ -7,6 +7,7 @@ import java.lang.annotation.Target;
 
 /**
  * Created by zhouquan on 2015/9/21.
+ * 自定义实体过滤器
  */
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)

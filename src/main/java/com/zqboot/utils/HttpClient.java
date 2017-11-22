@@ -9,6 +9,7 @@ import java.util.Map;
 
 /**
  * Created by zhouquan on 2016/3/29.
+ * 原生http请求工具类
  */
 public class HttpClient {
 

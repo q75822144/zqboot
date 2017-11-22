@@ -1,8 +1,8 @@
 package com.zqboot.interfaces.user.controller;
 
+import com.zqboot.constant.Constants;
 import com.zqboot.interfaces.user.model.User;
 import com.zqboot.interfaces.user.service.UserService;
-import com.zqboot.utils.Constants;
 import com.zqboot.utils.HttpUtils;
 import com.zqboot.utils.PageUtil;
 import com.zqboot.utils.ResultResponse;

@@ -16,6 +16,7 @@ import java.util.Map;
 
 /**
  * Created by zhouquan on 2016/3/1.
+ * 后端回写工具类
  */
 public class ResultResponse implements Serializable{
     private boolean result;
@@ -48,14 +49,12 @@ public class ResultResponse implements Serializable{
         this.msg = msg;
     }
 
-    public Map getData() {
-        return data;
-    }
-
-    public void setData(Map data) {
-        this.data = data;
-    }
-
+    /**
+     * 使用过滤器回写数据（单个对象）
+     * @param key
+     * @param value
+     * @param useFilter
+     */
     public void push(String key, Object value, String useFilter) {
         Class c = value.getClass();
         Field[] fs = c.getDeclaredFields();
@@ -76,10 +75,22 @@ public class ResultResponse implements Serializable{
         data.put(key, value);
     }
 
+    /**
+     * 增加回写数据
+     * @param key
+     * @param value
+     */
     public void push(String key, Object value) {
         data.put(key, value);
     }
 
+    /**
+     * 使用过滤器回写数据（数组对象）
+     * @param name
+     * @param list
+     * @param useFilter
+     * @throws IllegalAccessException
+     */
     public void push(String name, List list, String useFilter) throws IllegalAccessException {
         if (list != null && list.size() > 0) {
             for (Object o : list) {
@@ -101,6 +112,10 @@ public class ResultResponse implements Serializable{
         }
     }
 
+    /**
+     * 普通回写
+     * @param response
+     */
     public void write(HttpServletResponse response) {
         //设置数据返回类型
         response.setHeader("Access-Control-Allow-Origin", "*");
@@ -114,7 +129,7 @@ public class ResultResponse implements Serializable{
     }
 
     /**
-     * 年月日格式化输出json
+     * 年月日格式化输出json回写
      *
      * @param response
      */
@@ -132,7 +147,7 @@ public class ResultResponse implements Serializable{
     }
 
     /**
-     * 年月日格式化输出json
+     * 年月日时分格式化输出json回写
      *
      * @param response
      */
@@ -150,7 +165,7 @@ public class ResultResponse implements Serializable{
     }
 
     /**
-     * 年月日时分秒格式化输出json
+     * 年月日时分秒格式化输出json回写
      *
      * @param response
      */
@@ -168,7 +183,7 @@ public class ResultResponse implements Serializable{
     }
 
     /**
-     * 时间戳格式化输出json
+     * 时间戳格式化输出json回写
      *
      * @param response
      */

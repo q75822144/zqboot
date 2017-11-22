@@ -13,6 +13,7 @@ import java.util.List;
 
 /**
  * Created by zhouquan on 2015/9/15.
+ * 本地文件上传
  */
 public class FileUpload {
     @SuppressWarnings("deprecation")

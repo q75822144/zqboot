@@ -31,15 +31,15 @@ public class UserUtils {
         return map.get(attribute);
     }
 
-    /**
-     * 获取客户账户id(子帐号获取为父帐号id)
-     *
-     * @return
-     */
-    public static Integer getUserId() {
-        Map map = (Map) SESSION_MAP.get();
-        return (Integer) map.get("userId");
-    }
+//    /**
+//     * 获取客户账户id(子帐号获取为父帐号id)
+//     *
+//     * @return
+//     */
+//    public static Integer getUserId() {
+//        Map map = (Map) SESSION_MAP.get();
+//        return (Integer) map.get("userId");
+//    }
 
     /**
      * 获得线程中保存的属性，使用指定类型进行转型.

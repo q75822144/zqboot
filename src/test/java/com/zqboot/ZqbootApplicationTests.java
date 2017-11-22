@@ -1,7 +1,11 @@
 package com.zqboot;
 
+import com.zqboot.common.RedisService;
+import com.zqboot.constant.RedisConstant;
+import com.zqboot.utils.SpringUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -9,8 +13,20 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest
 public class ZqbootApplicationTests {
 
-	@Test
-	public void contextLoads() {
-	}
+    @Autowired
+    private RedisService redisService;
+
+    @Test
+    public void contextLoads() {
+    }
+
+    @Test
+    public void redisadd() {
+        boolean res = redisService.set(RedisConstant.TOKEN + "test", "123456");
+        System.out.println(res);
+        System.out.println(redisService.get(RedisConstant.TOKEN + "test"));
+//        RedisService redisService = SpringUtils.getBeanByType(RedisService.class);
+//        System.out.println(redisService);
+    }
 
 }

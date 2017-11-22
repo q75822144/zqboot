@@ -10,11 +10,13 @@ import java.util.Date;
 
 /**
  * Created by zhouquan on 2017/3/16.
+ * gson时间格式化
  */
 public class DateDeserializer implements JsonSerializer<Date> {
 
     /**
      * 实体转json将时间格式化为时间戳类型
+     *
      * @param src
      * @param typeOfSrc
      * @param context
