@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by zhouquan on 2016/11/11.
  */
-@Service
+//@Service
 public class RedisService {
 
     @Autowired

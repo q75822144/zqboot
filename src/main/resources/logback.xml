@@ -178,7 +178,7 @@
 
 
     <!-- 生产环境，将此级别配置为适合的级别，以名日志文件太多或影响程序性能 -->
-    <root level="DEBUG">
+    <root level="debug">
         <appender-ref ref="FILEDEBUG"/>
         <appender-ref ref="FILEINFO"/>
         <appender-ref ref="FILEWARN"/>
