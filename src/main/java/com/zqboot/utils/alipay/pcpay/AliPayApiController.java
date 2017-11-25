@@ -1,9 +1,8 @@
-package com.zqboot.utils.alipay.web;
+package com.zqboot.utils.alipay.pcpay;
 
 import com.zqboot.utils.alipay.configandutil.AlipayConfig;
 import com.zqboot.utils.alipay.configandutil.AlipayNotify;
 import com.zqboot.utils.alipay.configandutil.AlipaySubmit;
-import com.zqboot.utils.alipay.demo.AlipayCallBack;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
