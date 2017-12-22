@@ -61,5 +61,14 @@ public class AlipayConfig {
 
 //↑↑↑↑↑↑↑↑↑↑请在这里配置防钓鱼信息，如果没开通防钓鱼功能，为空即可 ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
 
+    //支付宝私钥
+    public static final String ALIPAY_PRIVATE_KEY = "";
+
+    //支付宝公钥
+    public static final String ALIPAY_PUBLIC_KEY = "";
+
+    //开放平台appid
+    public static final String APP_ID = "";
+
 }
 

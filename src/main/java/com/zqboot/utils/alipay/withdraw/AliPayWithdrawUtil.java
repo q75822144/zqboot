@@ -6,6 +6,7 @@ import com.alipay.api.AlipayClient;
 import com.alipay.api.DefaultAlipayClient;
 import com.alipay.api.request.AlipayFundTransToaccountTransferRequest;
 import com.alipay.api.response.AlipayFundTransToaccountTransferResponse;
+import com.zqboot.utils.alipay.configandutil.AlipayConfig;
 import com.zqboot.utils.alipay.configandutil.WithdrawSubmit;
 
 import java.util.Date;
@@ -16,26 +17,17 @@ import java.util.Date;
  */
 public class AliPayWithdrawUtil {
 
-    //开放平台密钥
-    private static final String ALIPAY_PRIVATE_KEY = "";
-
-    //开放平台公钥
-    private static final String ALIPAY_PUBLIC_KEY = "";
-
-    //开放平台appid
-    private static final String APP_ID = "";
-
-    private static final String API_URL = "https://openapi.alipay.com/gateway.do";
-
     /**
      * 支付宝提现
      * 文档链接：https://docs.open.alipay.com/309/106235/
+     *
      * @param withdrawSubmit
      * @return
      * @throws AlipayApiException
      */
     public boolean doWithdraw(WithdrawSubmit withdrawSubmit) throws AlipayApiException {
-        AlipayClient alipayClient = new DefaultAlipayClient(API_URL, APP_ID, ALIPAY_PRIVATE_KEY, "json", "utf-8", ALIPAY_PUBLIC_KEY, "RSA2");
+        AlipayClient alipayClient = new DefaultAlipayClient("https://openapi.alipay.com/gateway.do", AlipayConfig.APP_ID, AlipayConfig.ALIPAY_PRIVATE_KEY,
+                "json", "utf-8", AlipayConfig.ALIPAY_PUBLIC_KEY, "RSA2");
         AlipayFundTransToaccountTransferRequest request = new AlipayFundTransToaccountTransferRequest();
         request.setBizContent(withdrawSubmit.toString());
         AlipayFundTransToaccountTransferResponse response = alipayClient.execute(request);
@@ -47,9 +39,9 @@ public class AliPayWithdrawUtil {
     }
 
     public static void main(String[] args) throws AlipayApiException {
-        WithdrawSubmit withdrawSubmit  = new WithdrawSubmit();
+        WithdrawSubmit withdrawSubmit = new WithdrawSubmit();
         withdrawSubmit.setAmount(1.0);
-        withdrawSubmit.setOut_biz_no(new Date().getTime()+"");
+        withdrawSubmit.setOut_biz_no(new Date().getTime() + "");
         withdrawSubmit.setPayee_account("wangdachui@qq.com");
         withdrawSubmit.setPayee_real_name("王大锤");
         withdrawSubmit.setPayer_show_name("某某公司");
