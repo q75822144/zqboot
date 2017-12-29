@@ -4,10 +4,19 @@ import com.zqboot.common.es.model.Customer;
 import com.zqboot.common.es.service.CustomerRepository;
 import com.zqboot.common.redis.RedisService;
 import com.zqboot.constant.RedisConstant;
+import org.elasticsearch.client.Client;
+import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.index.query.functionscore.FunctionScoreQueryBuilder;
+import org.elasticsearch.index.query.functionscore.ScoreFunctionBuilders;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
+import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
+import org.springframework.data.elasticsearch.core.query.SearchQuery;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
@@ -21,6 +30,12 @@ public class ZqbootApplicationTests {
 
     @Autowired
     private CustomerRepository customerRepository;
+
+    @Autowired
+    private ElasticsearchTemplate elasticsearchTemplate;
+
+    @Autowired
+    Client client;
 
     @Test
     public void contextLoads() {
@@ -37,9 +52,8 @@ public class ZqbootApplicationTests {
 
     @Test
     public void esAdd(){
-        customerRepository.save(new Customer("3","mytest2","hehenihao2"));
-        List<Customer> customers = customerRepository.findByLastNameContaining("hehenihao");
-        System.out.println(customers.get(0).getFirstName());
+        Customer c = customerRepository.save(new Customer("4", "mytest2", "hehenihao2"));
+        System.out.println(c);
     }
 
     @Test
@@ -55,8 +69,27 @@ public class ZqbootApplicationTests {
 
     @Test
     public void  esFind(){
-        List<Customer> customers = customerRepository.findByLastNameContaining("nihao");
-        System.out.println(customers.size());
+        PageRequest pageRequest = new PageRequest(0,10);
+        Page<Customer> customers = customerRepository.findByLastNameContaining("nihao", pageRequest);
+        System.out.println(customers);
+        System.out.println(customers.getContent());
+
+//        // Function Score Query
+//        FunctionScoreQueryBuilder functionScoreQueryBuilder = QueryBuilders.functionScoreQuery()
+//                .add(QueryBuilders.boolQuery().should(QueryBuilders.matchQuery("lastName", "nihao")),
+//                        ScoreFunctionBuilders.weightFactorFunction(100));
+//        // 创建搜索 DSL 查询
+//        SearchQuery searchQuery = new NativeSearchQueryBuilder()
+//                .withPageable(pageRequest)
+//                .withQuery(functionScoreQueryBuilder).build();
+//        Page<Customer> customers = customerRepository.search(searchQuery);
+    }
+
+    @Test
+    public void testTemp(){
+        System.out.println(elasticsearchTemplate);
+        System.out.println(elasticsearchTemplate.getClient());
+        System.out.println(client);
     }
 
 }

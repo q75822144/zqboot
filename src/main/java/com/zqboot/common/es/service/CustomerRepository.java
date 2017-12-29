@@ -5,14 +5,14 @@ package com.zqboot.common.es.service;
  */
 
 import com.zqboot.common.es.model.Customer;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
-
-import java.util.List;
 
 public interface CustomerRepository extends ElasticsearchRepository<Customer, String> {
 
     public Customer findByFirstName(String firstName);
 
-    public List<Customer> findByLastNameContaining(String lastName);
+    public Page<Customer> findByLastNameContaining(String lastName, Pageable pageable);
 
 }
