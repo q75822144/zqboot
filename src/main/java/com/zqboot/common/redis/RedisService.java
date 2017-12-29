@@ -1,4 +1,4 @@
-package com.zqboot.common;
+package com.zqboot.common.redis;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.*;
@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by zhouquan on 2016/11/11.
  */
-//@Service
+@Service
 public class RedisService {
 
     @Autowired

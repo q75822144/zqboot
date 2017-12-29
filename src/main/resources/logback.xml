@@ -9,7 +9,7 @@
 
     <!-- 在Eclipse中运行，请到Eclipse的安装目录中找log文件，Tomcat下，请到Tomcat目录下找 -->
     <!-- <property name="LOG_PATH" value="/xebest/logs/llmj-app" /> -->
-    <property name="LOG_PATH" value="E:/logback"/>
+    <property name="LOG_PATH" value="d:/logback"/>
     <!-- 日志记录器，日期滚动记录 -->
     <appender name="FILEERROR"
               class="ch.qos.logback.core.rolling.RollingFileAppender">
