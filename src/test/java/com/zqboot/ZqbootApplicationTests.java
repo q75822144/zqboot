@@ -52,7 +52,7 @@ public class ZqbootApplicationTests {
 
     @Test
     public void esAdd(){
-        Customer c = customerRepository.save(new Customer("4", "mytest2", "hehenihao2"));
+        Customer c = customerRepository.save(new Customer("4", "mytest3", "hehenihao3"));
         System.out.println(c);
     }
 

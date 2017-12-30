@@ -26,7 +26,7 @@ public class EsConfig {
     private String EsHost;
 
     @Value("${elasticsearch.port}")
-    private int EsPort;
+    private String EsPort;
 
     @Value("${elasticsearch.clustername}")
     private String EsClusterName;
@@ -39,10 +39,19 @@ public class EsConfig {
                 .build();
 
         //https://www.elastic.co/guide/en/elasticsearch/guide/current/_transport_client_versus_node_client.html
-        return TransportClient.builder()
+        TransportClient transportClient = TransportClient.builder()
                 .settings(esSettings)
-                .build()
-                .addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName(EsHost), EsPort));
+                .build();
+        String[] esPorts = EsPort.split(",");
+        String[] esHosts = EsHost.split(",");
+        for (int i = 0; i < esPorts.length; i++) {
+            transportClient.addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName(esHosts[i]), Integer.parseInt(esPorts[i])));
+        }
+        return transportClient;
+//        return TransportClient.builder()
+//                .settings(esSettings)
+//                .build()
+//                .addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName(EsHost), EsPort));
     }
 
     @Bean
