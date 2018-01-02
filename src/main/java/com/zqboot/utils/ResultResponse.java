@@ -1,5 +1,6 @@
 package com.zqboot.utils;
 
+import com.google.gson.ExclusionStrategy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -18,7 +19,7 @@ import java.util.Map;
  * Created by zhouquan on 2016/3/1.
  * 后端回写工具类
  */
-public class ResultResponse implements Serializable{
+public class ResultResponse implements Serializable {
     private boolean result;
     private String msg;
     private Map data = new HashMap();
@@ -50,33 +51,8 @@ public class ResultResponse implements Serializable{
     }
 
     /**
-     * 使用过滤器回写数据（单个对象）
-     * @param key
-     * @param value
-     * @param useFilter
-     */
-    public void push(String key, Object value, String useFilter) {
-        Class c = value.getClass();
-        Field[] fs = c.getDeclaredFields();
-        for (Field f : fs) {
-            if (f.getAnnotation(FilterAnnotion.class) != null) {
-                for (String s : f.getAnnotation(FilterAnnotion.class).isDelete()) {
-                    if (s.equals(useFilter)) {
-                        f.setAccessible(true);
-                        try {
-                            f.set(value, null);
-                        } catch (IllegalAccessException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-            }
-        }
-        data.put(key, value);
-    }
-
-    /**
      * 增加回写数据
+     *
      * @param key
      * @param value
      */
@@ -85,35 +61,8 @@ public class ResultResponse implements Serializable{
     }
 
     /**
-     * 使用过滤器回写数据（数组对象）
-     * @param name
-     * @param list
-     * @param useFilter
-     * @throws IllegalAccessException
-     */
-    public void push(String name, List list, String useFilter) throws IllegalAccessException {
-        if (list != null && list.size() > 0) {
-            for (Object o : list) {
-                Class c = o.getClass();
-                Field[] fs = c.getDeclaredFields();
-                for (Field f : fs) {
-                    if (f.getAnnotation(FilterAnnotion.class) != null) {
-                        for (String s : f.getAnnotation(FilterAnnotion.class).isDelete()) {
-                            if (s.equals(useFilter)) {
-                                f.setAccessible(true);
-                                f.set(o, null);
-                            }
-                        }
-                    }
-
-                }
-            }
-            data.put(name, list);
-        }
-    }
-
-    /**
      * 普通回写
+     *
      * @param response
      */
     public void write(HttpServletResponse response) {
@@ -129,17 +78,37 @@ public class ResultResponse implements Serializable{
     }
 
     /**
+     * 带过滤器普通回写
+     *
+     * @param response
+     */
+    public void writeStrategy(HttpServletResponse response, ExclusionStrategy... exclusionStrategies) {
+        //设置数据返回类型
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setContentType("application/json; charset=utf-8");
+        try {
+            PrintWriter out = response.getWriter();
+            GsonBuilder gsonBuilder = new GsonBuilder();
+            gsonBuilder.setExclusionStrategies(exclusionStrategies);
+            Gson gson = gsonBuilder.create();
+            out.print(gson.toJson(this));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
      * 年月日格式化输出json回写
      *
      * @param response
      */
-    public void writeYYYYMMDD(HttpServletResponse response) {
+    public void writeDateFormat(HttpServletResponse response, String dateFormat) {
         //设置数据返回类型
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setContentType("application/json; charset=utf-8");
         try {
             PrintWriter out = response.getWriter();
-            Gson gsonYMD = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+            Gson gsonYMD = new GsonBuilder().setDateFormat(dateFormat).create();
             out.print(gsonYMD.toJson(this));
         } catch (IOException e) {
             e.printStackTrace();
@@ -147,36 +116,18 @@ public class ResultResponse implements Serializable{
     }
 
     /**
-     * 年月日时分格式化输出json回写
+     * 年月日格式化并且指定过滤器输出json回写
      *
      * @param response
      */
-    public void writeYYYYMMDD_HHMM(HttpServletResponse response) {
+    public void writeDateFormatAndStrategy(HttpServletResponse response, String dateFormat, ExclusionStrategy... exclusionStrategies) {
         //设置数据返回类型
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setContentType("application/json; charset=utf-8");
         try {
             PrintWriter out = response.getWriter();
-            Gson gsonYMD = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm").create();
+            Gson gsonYMD = new GsonBuilder().setDateFormat(dateFormat).setExclusionStrategies(exclusionStrategies).create();
             out.print(gsonYMD.toJson(this));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * 年月日时分秒格式化输出json回写
-     *
-     * @param response
-     */
-    public void writeYYYYMMDD_HHMMSS(HttpServletResponse response) {
-        //设置数据返回类型
-        response.setHeader("Access-Control-Allow-Origin", "*");
-        response.setContentType("application/json; charset=utf-8");
-        try {
-            PrintWriter out = response.getWriter();
-            Gson gsonYMDHMS = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-            out.print(gsonYMDHMS.toJson(this));
         } catch (IOException e) {
             e.printStackTrace();
         }

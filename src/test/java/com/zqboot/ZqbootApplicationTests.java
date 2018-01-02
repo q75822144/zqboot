@@ -52,7 +52,7 @@ public class ZqbootApplicationTests {
 
     @Test
     public void esAdd(){
-        Customer c = customerRepository.save(new Customer("4", "mytest3", "hehenihao3"));
+        Customer c = customerRepository.save(new Customer("4", "mytest3", "呵呵"));
         System.out.println(c);
     }
 
@@ -70,7 +70,7 @@ public class ZqbootApplicationTests {
     @Test
     public void  esFind(){
         PageRequest pageRequest = new PageRequest(0,10);
-        Page<Customer> customers = customerRepository.findByLastNameContaining("nihao", pageRequest);
+        Page<Customer> customers = customerRepository.findByLastNameContaining("呵", pageRequest);
         System.out.println(customers);
         System.out.println(customers.getContent());
 
