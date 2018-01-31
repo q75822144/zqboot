@@ -37,6 +37,7 @@ public class UserController {
      */
     @RequestMapping(value = "/app/user", method = RequestMethod.POST)
     public void addUser(HttpServletRequest request, HttpServletResponse response) {
+        System.out.println(request.getSession().getId());
         ResultResponse resp = new ResultResponse();
         try {
             User user = HttpUtils.convert(request, User.class);

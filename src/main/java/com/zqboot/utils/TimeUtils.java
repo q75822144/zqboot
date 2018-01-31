@@ -21,10 +21,10 @@ public class TimeUtils {
     public static Date getTimeByString(String date)  {
         Date d = null;
         try {
-            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            SimpleDateFormat format = new SimpleDateFormat(UtilEnum.DateFormatString.yyyy_MM_dd_HHmmSS.getValue());
             d = format.parse(date);
         } catch (Exception e) {
-            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat format = new SimpleDateFormat(UtilEnum.DateFormatString.yyyy_MM_dd.getValue());
             try {
                 d = format.parse(date);
             } catch (ParseException e1) {
@@ -41,7 +41,13 @@ public class TimeUtils {
      * @return
      */
     public static String getYYYY_MM_DD() {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat format = new SimpleDateFormat(UtilEnum.DateFormatString.yyyy_MM_dd.getValue());
+        String time = format.format(new Date());
+        return time;
+    }
+
+    public static String getYYYY_MM_dd_HHmm(){
+        SimpleDateFormat format = new SimpleDateFormat(UtilEnum.DateFormatString.yyyy_MM_dd_HHmm.getValue());
         String time = format.format(new Date());
         return time;
     }
@@ -52,18 +58,18 @@ public class TimeUtils {
      * @return
      */
     public static String getYYYY_MM_DD_HH_MM() {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月dd日 HH:mm");
+        SimpleDateFormat format = new SimpleDateFormat(UtilEnum.DateFormatString.yyyy_MM_dd_HHmm_chinese.getValue());
         String time = format.format(new Date());
         return time;
     }
 
     /**
-     * 得到yyyy-MM-dd格式日期
+     * 得到yyyyMMdd格式日期
      *
      * @return
      */
     public static String getYYYYMMDD() {
-        SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+        SimpleDateFormat format = new SimpleDateFormat(UtilEnum.DateFormatString.yyyyMMdd.getValue());
         String time = format.format(new Date());
         return time;
     }
@@ -76,7 +82,7 @@ public class TimeUtils {
     public static String getYYYYMMDDSubDay(int day) {
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.DAY_OF_MONTH, -day);
-        SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+        SimpleDateFormat format = new SimpleDateFormat(UtilEnum.DateFormatString.yyyyMMdd.getValue());
         String time = format.format(cal.getTime());
         return time;
     }
@@ -87,7 +93,7 @@ public class TimeUtils {
      * @return
      */
     public static String getyyMMddHHmmssSSS() {
-        SimpleDateFormat format = new SimpleDateFormat("yyMMddHHmmssSSS");
+        SimpleDateFormat format = new SimpleDateFormat(UtilEnum.DateFormatString.yyMMddHHmmssSSS.getValue());
         String time = format.format(new Date());
         return time;
     }
@@ -98,63 +104,8 @@ public class TimeUtils {
      * @return
      */
     public static String getyyyyMMddHHmmssSSS() {
-        SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmssSSS");
+        SimpleDateFormat format = new SimpleDateFormat(UtilEnum.DateFormatString.yyyyMMddHHmmssSSS.getValue());
         String time = format.format(new Date());
-        return time;
-    }
-
-    /**
-     * 得到yyMMddHHmmssSSS日期格式字符串
-     *
-     * @return
-     */
-    public static String getyyMMddHHmm() {
-        SimpleDateFormat format = new SimpleDateFormat("yyMMddHHmm");
-        String time = format.format(new Date());
-        return time;
-    }
-
-    /**
-     * 得到yyMMddHHmmss日期格式字符串
-     *
-     * @return
-     */
-    public static String getyyMMddHHmmss() {
-        SimpleDateFormat format = new SimpleDateFormat("yyMMddHHmmss");
-        String time = format.format(new Date());
-        return time;
-    }
-
-    /**
-     * 得到yyyyMMddHHmmss日期格式字符串
-     *
-     * @return
-     */
-    public static String getyyyyMMddHHmmss() {
-        SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmss");
-        String time = format.format(new Date());
-        return time;
-    }
-
-    /**
-     * 得到yyyy-MM格式日期
-     *
-     * @return
-     */
-    public static String getYYYY_MM(Date date) {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM");
-        String time = format.format(date);
-        return time;
-    }
-
-    /**
-     * 得到yyyy-MM-dd格式日期
-     *
-     * @return
-     */
-    public static String getYYYYMMDD(Date date) {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        String time = format.format(date);
         return time;
     }
 
@@ -193,7 +144,7 @@ public class TimeUtils {
      * @return
      */
     public static String getYearMonthDay(Date date, String flag) {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat format = new SimpleDateFormat(UtilEnum.DateFormatString.yyyy_MM_dd.getValue());
         String[] time = format.format(date).split("-");
         if ("y".equals(flag)) {
             return time[0];
@@ -212,7 +163,7 @@ public class TimeUtils {
      * @return
      */
     public static String getYearMonthDay(Timestamp date, String flag) {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat format = new SimpleDateFormat(UtilEnum.DateFormatString.yyyy_MM_dd.getValue());
         String[] time = format.format(date).split("-");
         if ("y".equals(flag)) {
             return time[0];
@@ -281,7 +232,7 @@ public class TimeUtils {
      */
     @SuppressWarnings("deprecation")
     public static boolean compareNow(String date) throws ParseException {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat format = new SimpleDateFormat(UtilEnum.DateFormatString.yyyy_MM_dd.getValue());
         Date d = format.parse(date);
         Date now = format.parse(getYYYY_MM_DD());
         if (d.getTime() >= now.getTime()) {
@@ -299,7 +250,7 @@ public class TimeUtils {
      * @return
      */
     public static String dateCalculateMonth(Date date, int nums) {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat format = new SimpleDateFormat(UtilEnum.DateFormatString.yyyy_MM_dd.getValue());
         String time = format.format(date);
         String[] times = time.split("-");
         int newmon = Integer.parseInt(times[1]) - nums;
@@ -320,7 +271,7 @@ public class TimeUtils {
      * @return
      */
     public static Timestamp dateAddMonth(Timestamp date, int month) throws ParseException {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat format = new SimpleDateFormat(UtilEnum.DateFormatString.yyyy_MM_dd.getValue());
         String time = format.format(date);
         String[] times = time.split("-");
         String newTime;
@@ -340,7 +291,7 @@ public class TimeUtils {
      * @return
      */
     public static String dateAddMonth(String date,int num){
-        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat sdf=new SimpleDateFormat(UtilEnum.DateFormatString.yyyy_MM_dd.getValue());
         String reDate = "";
         try {
             Date dt = sdf.parse(date);
@@ -364,7 +315,7 @@ public class TimeUtils {
      * @return
      */
     public static String dateAdd(String date,int num){
-        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat sdf=new SimpleDateFormat(UtilEnum.DateFormatString.yyyy_MM_dd.getValue());
 
         String reDate = "";
 
@@ -384,7 +335,7 @@ public class TimeUtils {
     }
 
     public static String getTimeStampYMD(Timestamp date) {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat format = new SimpleDateFormat(UtilEnum.DateFormatString.yyyy_MM_dd.getValue());
         return format.format(date);
     }
 
@@ -411,7 +362,7 @@ public class TimeUtils {
      * @throws ParseException
      */
     public static Date getUtcTime(String date)  {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+        SimpleDateFormat sdf = new SimpleDateFormat(UtilEnum.DateFormatString.yyyy_MM_dd_HHmmssSSS.getValue());
         String str = date.substring(0, 10) + " " + date.substring(11, 23);
         Date dt = null;
         try {
@@ -435,11 +386,5 @@ public class TimeUtils {
 //        System.out.println(getYYYY_MM_DD_HH_MM());
         System.out.println(!compareNow("2017-10-14"));
     }
-
-    //Date转TimeStamp
-    public static Timestamp getTimeStampByDate(Date date){
-        return new Timestamp((date).getTime());
-    }
-
 
 }

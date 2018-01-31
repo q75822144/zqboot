@@ -20,9 +20,11 @@
 <script src="jquery.js"></script>
 <script>
     function add() {
+
         $.ajax({
-            url: "/app/user",
+            url: "http://localhost:8080/app/user",
             type: "POST",
+            crossDomain: true,
             data: {account: '123', name: "hehe"},
             dataType: 'json',
             success: function (data) {
@@ -35,9 +37,9 @@
     }
     function del() {
         $.ajax({
-            url: "/app/user/1",
+            url: "http://localhost:5555/api-a-url/user/1",
             type: "DELETE",
-            dataType: 'json',
+            dataType: 'text',
             success: function (data) {
                 console.log(data)
             },
