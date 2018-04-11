@@ -24,9 +24,8 @@ public class UserService {
      * @param user
      */
     @Transactional(rollbackFor = Exception.class)
-    public void addUser(User user) {
+    public void addUser(User user) throws Exception {
         userMapper.addUser(user);
-//        throw new Exception("aaaaa");
     }
 
     /**

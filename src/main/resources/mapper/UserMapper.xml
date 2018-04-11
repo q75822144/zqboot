@@ -43,6 +43,9 @@
         <if test="name != null and name != ''">
             AND name LIKE LIKE CONCAT('%', #{name}, '%')
         </if>
+        <if test="phone != null and phone != ''">
+            AND phone LIKE LIKE CONCAT('%', #{phone}, '%')
+        </if>
     </select>
 
     <select id="listUser" resultMap="User">
@@ -52,6 +55,9 @@
         </if>
         <if test="name != null and name != ''">
             AND name LIKE LIKE CONCAT('%', #{name}, '%')
+        </if>
+        <if test="phone != null and phone != ''">
+            AND phone LIKE LIKE CONCAT('%', #{phone}, '%')
         </if>
         LIMIT #{start}, #{size}
     </select>

@@ -23,8 +23,7 @@ public class HttpUtils {
      * @return
      * @throws Exception
      */
-    public static <T> T convert(HttpServletRequest request, Class<T> c)
-            throws Exception {
+    public static <T> T convert(HttpServletRequest request, Class<T> c) throws Exception {
         T bean = c.newInstance();
         Enumeration e = request.getParameterNames();
         while (e.hasMoreElements()) {
@@ -91,8 +90,7 @@ public class HttpUtils {
      * @return
      * @throws Exception
      */
-    public static <T> Method getMethod(Class<T> c, String key)
-            throws Exception {
+    public static <T> Method getMethod(Class<T> c, String key) {
         String method = "get";
         method = method + StringUtils.firstUpper(key);
         Method m = null;
@@ -111,8 +109,7 @@ public class HttpUtils {
      * @return
      * @throws Exception
      */
-    public static String getSetMethodName(String key)
-            throws Exception {
+    public static String getSetMethodName(String key) {
         String method = "set";
         method = method + StringUtils.firstUpper(key);
         return method;

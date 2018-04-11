@@ -32,6 +32,8 @@ public class Constants {
 
     public static final String IS_FAIL = "失败";
 
+    public static final String SYS_ERROR = "系统异常";
+
     /**
      * 记录状态：(0:无效 , 1:有效)
      */
