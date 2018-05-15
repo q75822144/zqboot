@@ -3,6 +3,7 @@ package com.zqboot;
 import com.zqboot.common.es.model.Customer;
 import com.zqboot.common.es.service.CustomerRepository;
 import com.zqboot.common.redis.RedisService;
+import com.zqboot.common.redis.RedisTopic;
 import com.zqboot.constant.RedisConstant;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.index.query.QueryBuilders;
@@ -48,6 +49,12 @@ public class ZqbootApplicationTests {
         System.out.println(redisService.get(RedisConstant.TOKEN + "test"));
 //        RedisService redisService = SpringUtils.getBeanByType(RedisService.class);
 //        System.out.println(redisService);
+    }
+
+    @Test
+    public void redisPublish(){
+        redisService.publishTopic(RedisTopic.HELLO.name(),"你好");
+        redisService.publishTopic(RedisTopic.WORLD.name(),"世界");
     }
 
     @Test

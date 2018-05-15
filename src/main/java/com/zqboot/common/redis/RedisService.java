@@ -10,6 +10,7 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * redis工具类
  * Created by zhouquan on 2016/11/11.
  */
 @Service
@@ -246,6 +247,16 @@ public class RedisService {
     public Set<Object> rangeByScore(String key, double scoure, double scoure1) {
         ZSetOperations<String, Object> zset = redisTemplate.opsForZSet();
         return zset.rangeByScore(key, scoure, scoure1);
+    }
+
+    /**
+     * 消息队列发送（消费者）
+     *
+     * @param channel
+     * @param message
+     */
+    public void publishTopic(String channel, Object message) {
+        stringRedisTemplate.convertAndSend(channel, message);
     }
 
 }
