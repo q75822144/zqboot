@@ -98,7 +98,7 @@ public class UserController {
         resp.push("jsonObj", user);
         resp.setMsg(Constants.SELECT_SUCCESS);
         resp.setResult(true);
-        resp.write(response);
+        resp.writeStrategy(response, SimpleStrategyFilter.getInstance());
     }
 
     /**

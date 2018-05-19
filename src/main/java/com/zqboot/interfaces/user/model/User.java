@@ -1,5 +1,7 @@
 package com.zqboot.interfaces.user.model;
 
+import com.google.gson.annotations.Expose;
+
 import java.io.Serializable;
 
 /**
@@ -7,6 +9,7 @@ import java.io.Serializable;
  */
 public class User implements Serializable {
 
+    @Expose
     private Integer id;
     private String name;
     private String account;
