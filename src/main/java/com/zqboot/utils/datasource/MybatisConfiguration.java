@@ -51,7 +51,7 @@ public class MybatisConfiguration {
      *
      * @return
      */
-    @Bean(name="roundRobinDataSouceProxy")
+    @Bean(name="roundRobinDataSourceProxy")
     public AbstractRoutingDataSource roundRobinDataSouceProxy() {
 //        int size = Integer.parseInt(dataSourceSize);
 //        MyAbstractRoutingDataSource proxy = new MyAbstractRoutingDataSource(size);
@@ -72,6 +72,6 @@ public class MybatisConfiguration {
 
     @Bean
     public PlatformTransactionManager annotationDrivenTransactionManager() {
-        return new DataSourceTransactionManager((DataSource) SpringUtils.getBeanByName("roundRobinDataSouceProxy"));
+        return new DataSourceTransactionManager((DataSource) SpringUtils.getBeanByName("roundRobinDataSourceProxy"));
     }
 }
