@@ -21,7 +21,7 @@ public class DataSourceConfig {
 
     private final static Logger log = LoggerFactory.getLogger(DataSourceConfig.class);
 
-    @Value("${spring.datasource.type}")
+    @Value("${datasource.type}")
     private Class<? extends DataSource> dataSourceType;
 
     @Bean(name = "writeDataSource", destroyMethod = "close", initMethod = "init")
