@@ -15,11 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.List;
+import java.util.Map;
 
-/**
- * Created by zhouquan on 2017/10/23.
- */
 @RestController
 public class UserController {
 
@@ -41,7 +38,6 @@ public class UserController {
         User user = HttpUtils.convert(request, User.class);
         userService.addUser(user);
         resp.setMsg(Constants.ADD_SUCCESS);
-        resp.setResult(true);
         resp.write(response);
     }
 
@@ -59,7 +55,6 @@ public class UserController {
         ResultResponse resp = new ResultResponse();
         userService.deleteUser(id);
         resp.setMsg(Constants.DELETE_SUCCESS);
-        resp.setResult(true);
         resp.write(response);
     }
 
@@ -78,7 +73,6 @@ public class UserController {
         User user = HttpUtils.convert(request, User.class);
         userService.updateUser(user);
         resp.setMsg(Constants.UPDATE_SUCCESS);
-        resp.setResult(true);
         resp.write(response);
     }
 
@@ -95,9 +89,8 @@ public class UserController {
     public void findUserById(@PathVariable int id, HttpServletResponse response) {
         ResultResponse resp = new ResultResponse();
         User user = userService.findUserById(id);
-        resp.push("jsonObj", user);
+        resp.push(ResultResponse.ROW, user);
         resp.setMsg(Constants.SELECT_SUCCESS);
-        resp.setResult(true);
         resp.writeStrategy(response, SimpleStrategyFilter.getInstance());
     }
 
@@ -114,11 +107,9 @@ public class UserController {
     public void listUser(HttpServletRequest request, HttpServletResponse response) {
         ResultResponse resp = new ResultResponse();
         PageUtil pageUtil = new PageUtil(request);
-        List<User> users = userService.listUser(pageUtil);
-        resp.push("jsonList", users);
-        resp.push("total", pageUtil.get("total"));
+        Map<String, Object> res = userService.listUser(pageUtil);
+        resp.setData(res);
         resp.setMsg(Constants.SELECT_SUCCESS);
-        resp.setResult(true);
         resp.writeStrategy(response, SimpleStrategyFilter.getInstance());
     }
 

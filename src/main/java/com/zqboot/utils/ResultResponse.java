@@ -8,11 +8,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Serializable;
-import java.lang.reflect.Field;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -20,11 +18,19 @@ import java.util.Map;
  * 后端回写工具类
  */
 public class ResultResponse implements Serializable {
-    private boolean result;
+    private boolean result = true;
     private String msg;
-    private Map data = new HashMap();
-    private Integer code;
+    private Map<String, Object> data = new HashMap<String, Object>();
+    private Integer code = 200;
 
+    /**
+     * 记录列表
+     */
+    public static final String ROWS = "rows";
+    /**
+     * 单个记录
+     */
+    public static final String ROW = "row";
 
     public Integer getCode() {
         return code;
@@ -48,6 +54,10 @@ public class ResultResponse implements Serializable {
 
     public void setMsg(String msg) {
         this.msg = msg;
+    }
+
+    public void setData(Map<String, Object> data) {
+        this.data = data;
     }
 
     /**

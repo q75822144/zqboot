@@ -3,11 +3,12 @@ package com.zqboot.interfaces.user.service;
 import com.zqboot.interfaces.user.dao.UserMapper;
 import com.zqboot.interfaces.user.model.User;
 import com.zqboot.utils.PageUtil;
+import com.zqboot.utils.ResultResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import java.util.Map;
 
 /**
  * Created by zhouquan on 2017/11/13.
@@ -21,7 +22,7 @@ public class UserService {
     /**
      * 新增用户
      *
-     * @param user
+     * @param user 用户对象
      */
     @Transactional(rollbackFor = Exception.class)
     public void addUser(User user) throws Exception {
@@ -31,7 +32,7 @@ public class UserService {
     /**
      * 根据id删除用户
      *
-     * @param id
+     * @param id 主键
      */
     public void deleteUser(int id) {
         userMapper.deleteUser(id);
@@ -40,7 +41,7 @@ public class UserService {
     /**
      * 修改用户信息
      *
-     * @param user
+     * @param user 用户对象
      */
     public void updateUser(User user) {
         userMapper.updateUser(user);
@@ -50,9 +51,10 @@ public class UserService {
         return userMapper.findUserById(id);
     }
 
-    public List<User> listUser(PageUtil pageUtil) {
+    public Map<String, Object> listUser(PageUtil pageUtil) {
         int total = userMapper.countUser(pageUtil);
-        pageUtil.put("total", total);
-        return userMapper.listUser(pageUtil);
+        pageUtil.put(PageUtil.TOTAL, total);
+        pageUtil.put(ResultResponse.ROWS, userMapper.listUser(pageUtil));
+        return pageUtil;
     }
 }
