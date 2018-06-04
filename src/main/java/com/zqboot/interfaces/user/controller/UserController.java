@@ -3,10 +3,7 @@ package com.zqboot.interfaces.user.controller;
 import com.zqboot.constant.Constants;
 import com.zqboot.interfaces.user.model.User;
 import com.zqboot.interfaces.user.service.UserService;
-import com.zqboot.utils.HttpUtils;
-import com.zqboot.utils.PageUtil;
-import com.zqboot.utils.ResultResponse;
-import com.zqboot.utils.SimpleStrategyFilter;
+import com.zqboot.utils.*;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -91,7 +88,8 @@ public class UserController {
         User user = userService.findUserById(id);
         resp.push(ResultResponse.ROW, user);
         resp.setMsg(Constants.SELECT_SUCCESS);
-        resp.writeStrategy(response, SimpleStrategyFilter.getInstance());
+        resp.writeDateFormatAndStrategy(response,
+                UtilEnum.DateFormatString.yyyy_MM_dd_HHmmSS.getValue(), SimpleStrategyFilter.getInstance());
     }
 
     /**
@@ -110,7 +108,8 @@ public class UserController {
         Map<String, Object> res = userService.listUser(pageUtil);
         resp.setData(res);
         resp.setMsg(Constants.SELECT_SUCCESS);
-        resp.writeStrategy(response, SimpleStrategyFilter.getInstance());
+        resp.writeDateFormatAndStrategy(response,
+                UtilEnum.DateFormatString.yyyy_MM_dd_HHmmSS.getValue(), SimpleStrategyFilter.getInstance());
     }
 
 }
