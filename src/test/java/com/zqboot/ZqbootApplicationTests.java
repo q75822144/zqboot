@@ -5,10 +5,10 @@ import com.zqboot.common.es.service.CustomerRepository;
 import com.zqboot.common.redis.RedisService;
 import com.zqboot.common.redis.RedisTopic;
 import com.zqboot.constant.RedisConstant;
+import org.elasticsearch.action.search.SearchType;
 import org.elasticsearch.client.Client;
+import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
-import org.elasticsearch.index.query.functionscore.FunctionScoreQueryBuilder;
-import org.elasticsearch.index.query.functionscore.ScoreFunctionBuilders;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +17,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
-import org.springframework.data.elasticsearch.core.query.SearchQuery;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -52,48 +49,47 @@ public class ZqbootApplicationTests {
     }
 
     @Test
-    public void redisPublish(){
-        redisService.publishTopic(RedisTopic.HELLO.name(),"你好");
-        redisService.publishTopic(RedisTopic.WORLD.name(),"世界");
+    public void redisPublish() {
+        redisService.publishTopic(RedisTopic.HELLO.name(), "你好");
+        redisService.publishTopic(RedisTopic.WORLD.name(), "世界");
     }
 
     @Test
-    public void esAdd(){
+    public void esAdd() {
         Customer c = customerRepository.save(new Customer("4", "mytest3", "呵呵"));
         System.out.println(c);
     }
 
     @Test
-    public void esDelete(){
+    public void esDelete() {
         customerRepository.delete("AWCceZj83MdQyYPEa_Tq");
     }
 
     @Test
-    public void esUpdate(){
-        Customer customer = new Customer("2","zhangsan","nihaoma");
+    public void esUpdate() {
+        Customer customer = new Customer("2", "zhangsan", "nihaoma");
         customerRepository.save(customer);
     }
 
     @Test
-    public void  esFind(){
-        PageRequest pageRequest = new PageRequest(0,10);
-        Page<Customer> customers = customerRepository.findByLastNameContaining("呵", pageRequest);
-        System.out.println(customers);
-        System.out.println(customers.getContent());
+    public void esFind() {
+        PageRequest pageRequest = new PageRequest(0, 10);
+//        Page<Customer> customers = customerRepository.findByLastNameContaining("呵", pageRequest);
+//        System.out.println(customers);
+//        System.out.println(customers.getContent());
 
-//        // Function Score Query
-//        FunctionScoreQueryBuilder functionScoreQueryBuilder = QueryBuilders.functionScoreQuery()
-//                .add(QueryBuilders.boolQuery().should(QueryBuilders.matchQuery("lastName", "nihao")),
-//                        ScoreFunctionBuilders.weightFactorFunction(100));
-//        // 创建搜索 DSL 查询
-//        SearchQuery searchQuery = new NativeSearchQueryBuilder()
-//                .withPageable(pageRequest)
-//                .withQuery(functionScoreQueryBuilder).build();
-//        Page<Customer> customers = customerRepository.search(searchQuery);
+        PageRequest pageable = new PageRequest(0, 10);
+        NativeSearchQueryBuilder nbq = new NativeSearchQueryBuilder().withIndices("customers").withTypes("customer")
+                .withSearchType(SearchType.DEFAULT).withPageable(pageable);
+        BoolQueryBuilder bqb = QueryBuilders.boolQuery();
+        bqb.should(QueryBuilders.termQuery("name", "nihao"));
+        bqb.filter(QueryBuilders.rangeQuery("id").gt("1"));
+        Page<Customer> page = elasticsearchTemplate.queryForPage(nbq.withQuery(bqb).build(), Customer.class);
+        System.out.println(page.getContent());
     }
 
     @Test
-    public void testTemp(){
+    public void testTemp() {
         System.out.println(elasticsearchTemplate);
         System.out.println(elasticsearchTemplate.getClient());
         System.out.println(client);
