@@ -5,6 +5,7 @@ import com.zqboot.common.es.service.CustomerRepository;
 import com.zqboot.common.redis.RedisService;
 import com.zqboot.common.redis.RedisTopic;
 import com.zqboot.constant.RedisConstant;
+import com.zqboot.utils.wxpay.WxPayDemo;
 import org.elasticsearch.action.search.SearchType;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.index.query.BoolQueryBuilder;
@@ -34,6 +35,9 @@ public class ZqbootApplicationTests {
 
     @Autowired
     Client client;
+
+    @Autowired
+    WxPayDemo wxPayDemo;
 
     @Test
     public void contextLoads() {
@@ -93,6 +97,12 @@ public class ZqbootApplicationTests {
         System.out.println(elasticsearchTemplate);
         System.out.println(elasticsearchTemplate.getClient());
         System.out.println(client);
+    }
+
+    @Test
+    public void testWxPay(){
+        System.out.println(wxPayDemo.getAppID());
+        System.out.println(wxPayDemo.getKey());
     }
 
 }
