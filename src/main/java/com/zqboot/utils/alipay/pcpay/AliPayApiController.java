@@ -50,19 +50,14 @@ public class AliPayApiController {
         response.setContentType("text/html;charset=utf-8");
 //        //商户订单号，商户网站订单系统中唯一订单号，必填
         String out_trade_no = request.getParameter("out_trade_no");
-//
 //        //订单名称，必填
 //        String subject = new String(request.getParameter("WIDsubject").getBytes("ISO-8859-1"),"UTF-8");
         String subject = request.getParameter("subject");
-//
 //        //付款金额，必填
         String total_fee = request.getParameter("total_fee");
 //
 //        //商品描述，可空
         String body = request.getParameter("body");
-
-        //////////////////////////////////////////////////////////////////////////////////
-
         //把请求参数打包成数组
         Map<String, String> sParaTemp = new HashMap<String, String>();
         sParaTemp.put("service", AlipayConfig.service);
@@ -80,7 +75,6 @@ public class AliPayApiController {
         sParaTemp.put("body", body);
         //其他业务参数根据在线开发文档，添加参数.文档地址:https://doc.open.alipay.com/doc2/detail.htm?spm=a219a.7629140.0.0.O9yorI&treeId=62&articleId=103740&docType=1
         //如sParaTemp.put("参数名","参数值");
-
         //建立请求
         String sHtmlText = AlipaySubmit.buildRequest(sParaTemp, "get", "确认");
         out.println(sHtmlText);

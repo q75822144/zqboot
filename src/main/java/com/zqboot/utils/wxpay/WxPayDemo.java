@@ -1,13 +1,11 @@
 package com.zqboot.utils.wxpay;
 
-import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 /**
  * Created by zhouquan on 2018/9/14.
  */
-@Data
 @Component
 @ConfigurationProperties(prefix = "pay.wxpay")
 public class WxPayDemo {

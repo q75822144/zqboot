@@ -7,19 +7,83 @@
 <body>
 <div ng-app="myApp" ng-controller="myCtrl">
 
-    名: <input type="text" ng-model="firstName"><br>
-    姓: <input type="text" ng-model="lastName"><br>
+    名: <input type="text" ng-model="firstName" ng-keypress = "enterFunc($event, 'input2')" id="input1"><br>
+    姓: <input type="text" ng-model="lastName"  ng-keypress = "enterFunc($event, 'input3')" id="input2"><br>
+    姓: <textarea ng-keypress = "enterFunc($event,'input1')" id="input3"></textarea><br>
     <br>
-    姓名: {{firstName + " " + lastName}}
-
+    姓名: {{firstName + " " + lastName}}<br/>
+    <input type="radio" ng-model="Diagnosis.isSpecial" name="isSpecial" value="1" ng-click="isSpecialFunction(1)">是<span></span>
+    <input type="radio" ng-model="Diagnosis.isSpecial" name="isSpecial" value="0" ng-click="isSpecialFunction(2)">否 <span></span>
+    <button ng-click="funa()">aaaaa</button>
 </div>
+
 </body>
 <script src="angular1-2-9.js"></script>
 <script>
+    console.log("jpushAlia_205000000".length)
+
     var app = angular.module('myApp', []);
-    app.controller('myCtrl', function($scope) {
-        $scope.firstName= "John";
-        $scope.lastName= "Doe";
+
+    app.controller('myCtrl', function($scope,$http,$q) {
+
+        var arr = [1,2,3]
+        angular.forEach(arr,function (a,index,aaa) {
+            console.log(a)
+            console.log(index)
+            console.log(aaa)
+        })
+
+        // $scope.enterFunc = function(e, id){
+        //     if(e.keyCode==13){//回车
+        //         e.preventDefault();
+        //         document.getElementById(id).focus();
+        //     }
+        // }
+        //
+        // $scope.Diagnosis = {
+        //     isSpecial:0
+        // }
+        // $scope.funa = function(){
+        //     alert($scope.Diagnosis.isSpecial)
+        // }
+        // $scope.isSpecialFunction = function(val){
+        //     $scope.Diagnosis.isSpecial = val;
+        // }
+        //
+        // $scope.firstName= "John";
+        // $scope.lastName= "Doe";
+        //
+        // var arr = [1,2,3];
+        // angular.forEach(arr,function (a) {
+        //     console.log(a)
+        // })
+        // console.log($q)
+        //
+        //
+        // var defer1 = $q.defer();
+        // var promise1 = defer1.promise;
+        //
+        // promise1
+        //     .then(function(value){
+        //         console.log("in promise1 ---- success");
+        //         console.log(value);
+        //     },function(value){
+        //         console.log("in promise1 ---- error");
+        //         console.log(value);
+        //     },function(value){
+        //         console.log("in promise1 ---- notify");
+        //         console.log(value);
+        //     })
+        //     .catch(function(e){
+        //         console.log("in promise1 ---- catch");
+        //         console.log(e);
+        //     })
+        //     .finally(function(value){
+        //         console.log('in promise1 ---- finally');
+        //         console.log(value);
+        //     });
+        //
+        // defer1.resolve("hello");
     });
 </script>
 </html>

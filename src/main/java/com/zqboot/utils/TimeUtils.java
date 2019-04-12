@@ -384,7 +384,7 @@ public class TimeUtils {
 //        Timestamp timestamp = new Timestamp()
 //        System.out.println(getYYYYMMDDSubDay(1));
 //        System.out.println(getYYYY_MM_DD_HH_MM());
-        System.out.println(!compareNow("2017-10-14"));
+//        System.out.println(!compareNow("2017-10-14"));
     }
 
 }

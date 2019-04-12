@@ -18,8 +18,8 @@ import java.net.InetAddress;
 //http://docs.spring.io/spring-data/elasticsearch/docs/current/reference/html/#elasticsearch.repositories
 //http://geekabyte.blogspot.my/2015/08/embedding-elasticsearch-in-spring.html
 //https://github.com/spring-projects/spring-data-elasticsearch/wiki/Spring-Data-Elasticsearch---Spring-Boot---version-matrix
-@Configuration
-@EnableElasticsearchRepositories(basePackages = "com.zqboot.common.es.service")
+//@Configuration
+//@EnableElasticsearchRepositories(basePackages = "com.zqboot.common.es.service")
 public class EsConfig {
 
     @Value("${elasticsearch.host}")
