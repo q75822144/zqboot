@@ -180,8 +180,7 @@
         <appender-ref ref="stdout"/>
     </logger>
 
-    <logger name="org.apache.kafka" level="OFF"/>
-    <logger name="io.netty" level="OFF" />
+    <Logger name="org.springframework.kafka.listener.KafkaMessageListenerContainer" level="OFF"/>
 
     <!-- 生产环境，将此级别配置为适合的级别，以名日志文件太多或影响程序性能 -->
     <root level="INFO">
